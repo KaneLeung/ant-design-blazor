@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using AntDesign.Core.Reflection;
 using AntDesign.TableModels;
@@ -31,6 +32,9 @@ namespace AntDesign
 
         [Parameter]
         public bool ShowSorterTooltip { get; set; } = true;
+
+        [Parameter]
+        public IEnumerable<FilterModel<TData>> Filters { get; set; }
 
         private PropertyReflector? _propertyReflector;
 
@@ -71,7 +75,7 @@ namespace AntDesign
         {
             get
             {
-                var next = SortModel.NextType();
+                var next = SortModel?.NextType();
                 if (next == SortType.None)
                 {
                     return Table.Locale.CancelSort;
