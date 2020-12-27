@@ -36,6 +36,12 @@ namespace AntDesign
         [Parameter]
         public IEnumerable<FilterModel<TData>> Filters { get; set; }
 
+        [Parameter]
+        public bool FilterMultiple { get; set; }
+
+        [Parameter]
+        public Func<string[], TData> OnFilter { get; set; }
+
         private PropertyReflector? _propertyReflector;
 
         public string DisplayName => _propertyReflector?.DisplayName;
@@ -43,6 +49,10 @@ namespace AntDesign
         public string FieldName => _propertyReflector?.PropertyName;
 
         public ITableSortModel SortModel { get; private set; }
+
+        private static EventCallbackFactory _callbackFactory = new EventCallbackFactory();
+
+        private bool _filterOpened;
 
         protected override void OnInitialized()
         {
@@ -95,6 +105,12 @@ namespace AntDesign
         {
             RowData.Expanded = !RowData.Expanded;
             Table?.Refresh();
+        }
+
+        private void FilterConfirm()
+        {
+            _filterOpened = false;
+            Table?.ReloadAndInvokeChange();
         }
     }
 }
