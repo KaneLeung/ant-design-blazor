@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace AntDesign.Select.Internal
 {
-    public partial class SelectContent<TItemValue, TItem>
+    public partial class SelectContent<TItemValue, TItem> : ComponentBase
     {
-        [CascadingParameter(Name = "ParentSelect")] internal Select<TItemValue, TItem> ParentSelect { get; set; }
+        [CascadingParameter(Name = "ParentSelect")] internal SelectBase<TItemValue, TItem> ParentSelect { get; set; }
         [CascadingParameter(Name = "ParentLabelTemplate")] internal RenderFragment<TItem> ParentLabelTemplate { get; set; }
         [CascadingParameter(Name = "ShowSearchIcon")] internal bool ShowSearchIcon { get; set; }
         [CascadingParameter(Name = "ShowArrowIcon")] internal bool ShowArrowIcon { get; set; }
